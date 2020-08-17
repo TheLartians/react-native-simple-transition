@@ -5,6 +5,10 @@
   "author": "Lars Melchior",
   "license": "MIT",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheLartians/react-native-simple-transition"
+  },
   "files": [
     "dist"
   ],
