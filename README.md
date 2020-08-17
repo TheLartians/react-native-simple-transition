@@ -1,3 +1,6 @@
+![Build](https://github.com/TheLartians/react-native-simple-transition/workflows/Build/badge.svg)
+[![npm version](https://badge.fury.io/js/react-native-simple-transition.svg)](https://badge.fury.io/js/react-native-simple-transition)
+
 # react-native-simple-transition
 
 An easy to use transition component for React Native.

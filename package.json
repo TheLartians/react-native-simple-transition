@@ -21,6 +21,19 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
+    "prepublish": "npm run build",
+    "check:style": "prettier --check \"src/**/*[!.d].ts\" \"src/**/*.tsx\"",
     "fix:style": "prettier --check \"src/**/*.ts\"  \"src/**/*.tsx\" --write"
-  }
+  },
+  "keywords": [
+    "android",
+    "animation",
+    "fade",
+    "ios",
+    "mobile",
+    "react-native",
+    "react-native-component",
+    "transition",
+    "ui"
+  ]
 }
