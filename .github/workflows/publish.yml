@@ -13,6 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: install
+        run: yarn install
+
+      - name: build
+        run: yarn build
+
       - name: Publish
         if: github.ref == 'refs/heads/master'
         uses: mikeal/merge-release@master
