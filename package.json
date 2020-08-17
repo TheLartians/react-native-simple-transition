@@ -1,0 +1,22 @@
+{
+  "name": "react-native-component-transition",
+  "version": "0.0.1",
+  "description": "A small component that automatically transitions child changes",
+  "author": "Lars Melchior",
+  "license": "MIT",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/react-native": "^0.63.8",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "fix:style": "prettier --check \"src/**/*.ts\"  \"src/**/*.tsx\" --write"
+  }
+}
