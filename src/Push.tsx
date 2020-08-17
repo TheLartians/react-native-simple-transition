@@ -72,7 +72,7 @@ export const WithPushTransition = ({
       Animated.timing(value, {
         toValue: 1,
         duration: duration ?? 1000,
-        easing: easing || Easing.inOut(Easing.ease),
+        easing: easing ?? Easing.inOut(Easing.ease),
         useNativeDriver: true,
       }),
     [value, duration]
@@ -80,17 +80,17 @@ export const WithPushTransition = ({
 
   useEffect(() => {
     if (views[0][0] != currentKey) {
-      let valid = true;
-      setViews([[currentKey, children], ...views]);
+      setViews([[currentKey, children], views[0]]);
       animation.stop();
       value.setValue(0);
+      let active = true;
       animation.start(() => {
-        if (valid) {
+        if (active) {
           setViews([[currentKey, children]]);
         }
       });
       return () => {
-        valid = false;
+        active = false;
       };
     } else if (views[0][1] != children) {
       const updatedViews = [...views];
