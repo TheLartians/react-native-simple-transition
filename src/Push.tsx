@@ -116,9 +116,7 @@ export const WithPushTransition = ({
             position: "absolute",
             width: "100%",
             height: "100%",
-            transform: [
-              createTransform(value, idx, width, height, direction),
-            ],
+            transform: [createTransform(value, idx, width, height, direction)],
           }}
         >
           {view}

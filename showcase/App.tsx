@@ -16,7 +16,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {WithPushTransition} from 'react-native-component-transition';
+import {WithPushTransition} from 'react-native-simple-transition';
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -27,14 +27,14 @@ const App = () => {
       <WithPushTransition
         style={styles.innerWindow}
         duration={500}
-        contentKey={count}
         direction={direction}>
         <View
+          key={count}
           style={[
             styles.innerContainer,
             {backgroundColor: count % 2 == 0 ? 'red' : 'green'},
           ]}>
-          <Text style={styles.innerLabel}>{count.toString()}</Text>
+          <Text style={styles.innerLabel}>{direction}</Text>
         </View>
       </WithPushTransition>
       <TouchableOpacity
@@ -51,15 +51,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'white',
-    padding: 10,
   },
   buttonContainer: {
     backgroundColor: 'blue',
-    margin: 10,
     paddingVertical: 10,
     paddingHorizontal: 50,
     borderRadius: 100,
     justifyContent: 'center',
+    marginTop: 0,
+    margin: 10,
   },
   buttonLabel: {
     color: 'white',
@@ -68,11 +68,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   innerWindow: {
-    width: '80%',
-    height: '50%',
+    flex: 1,
     borderRadius: 20,
     overflow: 'hidden',
-    alignSelf: 'center',
+    margin: 10,
   },
   innerContainer: {
     width: '100%',

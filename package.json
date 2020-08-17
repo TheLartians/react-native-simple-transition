@@ -1,5 +1,5 @@
 {
-  "name": "react-native-component-transition",
+  "name": "react-native-simple-transition",
   "version": "0.0.1",
   "description": "A small component that automatically transitions child changes",
   "author": "Lars Melchior",
