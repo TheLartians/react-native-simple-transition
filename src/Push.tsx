@@ -3,7 +3,7 @@ import { Animated, View, Easing, ViewStyle } from "react-native";
 
 type Key = string | number | null | undefined;
 
-type AnimatedMoveInProps = {
+export type WithPushTransitionProps = {
   children: React.ReactNode & { key?: Key };
   contentKey?: Key;
   duration?: number;
@@ -17,7 +17,7 @@ function createTransform(
   idx: number,
   width: number,
   height: number,
-  direction: AnimatedMoveInProps["direction"]
+  direction: WithPushTransitionProps["direction"]
 ) {
   switch (direction) {
     case "right":
@@ -59,7 +59,7 @@ export const WithPushTransition = ({
   easing,
   style,
   direction,
-}: AnimatedMoveInProps) => {
+}: WithPushTransitionProps) => {
   const currentKey = contentKey ?? children.key;
 
   const [[width, height], setLayout] = useState([0, 0]);
