@@ -45,4 +45,4 @@ More are planned to be added soon.
 - `duration`: transition duration in milliseconds
 - `style`: the style given to the transition component
 - `easing`: an [easing function](https://reactnative.dev/docs/easing) for the transition
-- `direction`: the direction of the transition; can be `left`, `right`, `up` or `down`
+- `direction`: the direction of the transition; can be `"left"`, `"right"`, `"up"` or `"down"`

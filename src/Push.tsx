@@ -20,7 +20,6 @@ function createTransform(
   direction: AnimatedMoveInProps["direction"]
 ) {
   switch (direction) {
-    default:
     case "right":
       return {
         translateX: value.interpolate({
@@ -28,6 +27,7 @@ function createTransform(
           outputRange: [width * (idx - 1), width * idx],
         }),
       };
+    default:
     case "left":
       return {
         translateX: value.interpolate({
