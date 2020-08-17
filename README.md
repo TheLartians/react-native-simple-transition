@@ -24,7 +24,7 @@ const MyComponent = () => {
   return (
     <WithPushTransition style={{flex: 1}}>
       <Text key={count} onPress={() => setCount(count+1)}>
-        This is component {count}.
+        This component will smoothly transition on key changes.
       </Text>
     </WithPushTransition>
   )
