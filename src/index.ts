@@ -1,1 +1,1 @@
-export { WithPushTransition } from "./Push";
+export { WithPushTransition, WithPushTransitionProps } from "./Push";
