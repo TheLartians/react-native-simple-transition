@@ -15,16 +15,16 @@ const App = () => {
   return (
     <SafeAreaView style={styles.appContainer}>
       <WithPushTransition
+        contentKey={count}
         style={styles.innerWindow}
         duration={500}
         direction={direction}>
         <View
-          key={count}
           style={[
             styles.innerContainer,
             {backgroundColor: count % 2 == 0 ? 'red' : 'green'},
           ]}>
-          <Text style={styles.innerLabel}>{direction}</Text>
+          <Text style={styles.innerLabel}>{count}: {direction}</Text>
         </View>
       </WithPushTransition>
       <TouchableOpacity

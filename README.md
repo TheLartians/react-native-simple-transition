@@ -5,7 +5,7 @@
 
 A minimalist and easy to use transition component for React Native.
 
-![animated example](./showcase/showcase.gif)
+![animated example](./example/showcase.gif)
 
 ## Usage
 
