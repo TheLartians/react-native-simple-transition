@@ -23,7 +23,8 @@
     "watch": "tsc --watch",
     "prepublish": "npm run build",
     "check:style": "prettier --check \"src/**/*[!.d].ts\" \"src/**/*.tsx\"",
-    "fix:style": "prettier --check \"src/**/*.ts\"  \"src/**/*.tsx\" --write"
+    "fix:style": "prettier --check \"src/**/*.ts\"  \"src/**/*.tsx\" --write",
+    "example": "yarn --cwd example"
   },
   "keywords": [
     "android",
