@@ -22,10 +22,3 @@ jobs:
 
       - name: check style
         run: yarn check:style
-
-      - name: check showcase
-        run: |
-          cd showcase
-          yarn
-          yarn test
-          yarn check:style

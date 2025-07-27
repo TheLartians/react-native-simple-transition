@@ -1,14 +1,24 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Animated, View, Easing, ViewStyle } from "react-native";
-
-type Key = string | number | null | undefined;
+import React, { useState, useEffect, useMemo, ReactNode } from "react";
+import {
+  Animated,
+  View,
+  Easing,
+  ViewStyle,
+  Text,
+  EasingFunction,
+} from "react-native";
 
 export type WithPushTransitionProps = {
-  children: React.ReactNode & { key?: Key };
-  contentKey?: Key;
+  children: React.ReactNode;
+  /** A unique key for the currently displayed content. When changing content update this key to trigger a transition. */
+  contentKey: string | number;
+  /** The animation duration. */
   duration?: number;
+  /** The style for the container View of the content */
   style?: ViewStyle;
-  easing?: (v: number) => number;
+  /** The easing function for the transition animation. */
+  easing?: EasingFunction;
+  /** The direction for the push animation. */
   direction?: "left" | "right" | "up" | "down";
 };
 
@@ -58,70 +68,86 @@ export const WithPushTransition = ({
   duration,
   easing,
   style,
-  direction,
-}: WithPushTransitionProps) => {
-  const currentKey = contentKey ?? children.key;
+  direction = "left",
+}: WithPushTransitionProps): ReactNode => {
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
-  const [[width, height], setLayout] = useState([0, 0]);
-  const [views, setViews] = useState([[currentKey, children] as const]);
+  const [current, setCurrent] = useState<ReactNode>(children);
+  const [currentKey, setCurrentKey] = useState(contentKey);
+  const [previous, setPrevious] = useState<ReactNode>();
 
-  const value = useMemo(() => new Animated.Value(1), []);
+  const animatedValue = useMemo(() => new Animated.Value(1), []);
 
   const animation = useMemo(
     () =>
-      Animated.timing(value, {
+      Animated.timing(animatedValue, {
         toValue: 1,
         duration: duration ?? 1000,
         easing: easing ?? Easing.inOut(Easing.ease),
         useNativeDriver: true,
       }),
-    [value, duration]
+    [animatedValue, duration, easing]
   );
 
   useEffect(() => {
-    if (views[0][0] != currentKey) {
-      setViews([[currentKey, children], views[0]]);
+    if (currentKey !== contentKey) {
+      // add the new children to the current views
+      setPrevious(current);
+      setCurrentKey(contentKey);
+      setCurrent(children);
+
       animation.stop();
-      value.setValue(0);
-      let active = true;
-      animation.start(() => {
-        if (active) {
-          setViews([[currentKey, children]]);
-        }
+      requestAnimationFrame(() => {
+        animatedValue.setValue(0);
+        requestAnimationFrame(() => {
+          animation.start(() => {
+            // finish the animation by removing the previous children.
+            setPrevious(undefined);
+          });
+        });
       });
-      return () => {
-        active = false;
-      };
-    } else if (views[0][1] != children) {
-      const updatedViews = [...views];
-      updatedViews[0] = [views[0][0], children];
-      setViews(updatedViews);
+    } else {
+      // the key is identical so current view component needs to be updated
+      // the animation should continue running
+      setCurrent(children);
     }
   }, [currentKey, children]);
 
   return (
     <View
-      style={[{ position: "relative" }, style]}
-      onLayout={(event) =>
-        setLayout([
-          event.nativeEvent.layout.width,
-          event.nativeEvent.layout.height,
-        ])
-      }
+      style={[{ position: "relative", overflow: "hidden" }, style]}
+      onLayout={(event) => {
+        setWidth(event.nativeEvent.layout.width);
+        setHeight(event.nativeEvent.layout.height);
+      }}
     >
-      {views.map(([key, view], idx) => (
+      {previous && (
         <Animated.View
-          key={`animated_${key}`}
           style={{
             position: "absolute",
-            width: "100%",
-            height: "100%",
-            transform: [createTransform(value, idx, width, height, direction)],
+            width,
+            height,
+            transform: [
+              createTransform(animatedValue, 1, width, height, direction),
+            ],
           }}
         >
-          {view}
+          {previous}
         </Animated.View>
-      ))}
+      )}
+      <Animated.View
+        style={{
+          position: "absolute",
+          width,
+          height,
+          transform: [
+            createTransform(animatedValue, 0, width, height, direction),
+          ],
+        }}
+      >
+        {current}
+      </Animated.View>
     </View>
   );
 };

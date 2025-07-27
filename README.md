@@ -5,7 +5,7 @@
 
 A minimalist and easy to use transition component for React Native.
 
-![animated example](./showcase/showcase.gif)
+![animated example](./example/showcase.gif)
 
 ## Usage
 
@@ -16,7 +16,7 @@ yarn add react-native-simple-transition
 ```
 
 Create a transition component and add the content as a child.
-New components will be animated every time the key changes.
+New components will transition with an animation every time the content key changes.
 
 ```tsx
 import { WithPushTransition } from 'react-native-simple-transition';
@@ -25,8 +25,8 @@ const MyComponent = () => {
   const [count, setCount] = useState(0);
   
   return (
-    <WithPushTransition style={{flex: 1}}>
-      <Text key={count} onPress={() => setCount(count+1)}>
+    <WithPushTransition contentKey={count} style={{flex: 1}}>
+      <Text onPress={() => setCount(count+1)}>
         This component will smoothly transition on key changes.
       </Text>
     </WithPushTransition>
